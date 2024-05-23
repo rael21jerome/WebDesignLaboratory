@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    background-color: #b68282;
+    color: rgb(236, 227, 227);
+    padding: 10px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+
+nav li {
+    margin: 0 15px;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    font-size: 18px;
+}
+
+nav a:hover {
+    text-decoration: underline;
+}
+
+main {
+    padding: 20px;
+}
+#myshop {
+    text-align: center;
+    padding: 50px 0;
+}
+#products {
+    padding: 20px 0;
+}
+
+.product-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+}
+
+#about-us {
+    padding: 20px 0;
+    text-align: center;
+}
+
+footer {
+    background-color: #c58d8d;
+    color: white;
+    text-align: center;
+    padding: 10px 0;
+    position: fixed;
+    width: 100%;
+    bottom: 0;
+}
+#cart {
+    padding: 20px 0;
+    text-align: center;
+}
+.button {
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 16px;
+    color: #fff;
+    background-color: #c7617a;
+    border: none;
+    border-radius: 5px;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+}
+.add-to-cart {
+            padding: 10px 20px;
+            color: rgb(243, 240, 240);
+            border-color: aliceblue;
+            cursor: pointer;
+            margin-top: 10px;
+            background-color: #b68282;
+        }
+</style>
+<body>
+    <body>
+        <header>
+            <nav>
+                <ul>
+                    <li><a href="E-Commerce.html">Home</a></li>
+                    <li><a href="products.html">Products</a></li>
+                    <li><a href="aboutus.html">About Us</a></li>
+                </ul>
+            </nav>
+        </header>
+        <main>
+            <section id="myshop">
+                <h1>Better Weather</h1>
+                <p>Your one-stop shop for everything you need!</p>
+            </section>
+            <section id="products">
+                <h2 style="text-align: center;">Our Products</h2>
+                        <div class="product-grid">
+                            <div class="product" data-price="19.99">
+            
+                                <h3>Rain Coat</h3>
+                                <p>$19.99</p>
+                                <button class="add-to-cart">Add to Cart</button>
+                                <br>
+                                <br>
+                                <a href="raincoat.html" class="button">View Product</a>
+
+                            </div>
+                            <div class="product" data-price="5.25">
+                                <h3>Umbrella</h3>
+                                <p>$5.25</p>
+                                <button class="add-to-cart">Add to Cart</button>
+                                <br>
+                                <br>
+                                <a href="umbrella.html" class="button">View Product</a>
+
+                            </div>
+                            <div class="product" data-price="39.99">
+                                <h3>Boots</h3>
+                                <p>$39.99</p>
+                                <button class="add-to-cart">Add to Cart</button>
+                                <br>
+                                <br>
+                                <a href="boots.html" class="button">View Product</a>
+
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </section>
+            <section id="cart">
+                <h2>Shopping Cart</h2>
+                <ul id="cart-items"></ul>
+                <p>Total: $<span id="total-cost">0.00</span></p>
+                <button id="checkout">Checkout</button>
+            </section>
+            <hr>      
+        </main>
+        <footer>
+            <p>&copy; 2024 Better Weather. All rights reserved.</p>
+        </footer>
+        <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const cartItems = [];
+            const cartItemsList = document.getElementById('cart-items');
+            const totalCostElement = document.getElementById('total-cost');
+        
+            function updateCart() {
+                cartItemsList.innerHTML = '';
+                let totalCost = 0;
+                cartItems.forEach(item => {
+                    const li = document.createElement('li');
+                    li.textContent = `${item.name} - $${item.price.toFixed(2)}`;
+                    cartItemsList.appendChild(li);
+                    totalCost += item.price;
+                });
+                totalCostElement.textContent = totalCost.toFixed(2);
+            }
+        
+            function addToCart(product) {
+                const price = parseFloat(product.getAttribute('data-price'));
+                const name = product.querySelector('h3').textContent;
+                cartItems.push({ name, price });
+                updateCart();
+            }
+        
+            document.querySelectorAll('.add-to-cart').forEach(button => {
+                button.addEventListener('click', () => {
+                    const product = button.parentElement;
+                    addToCart(product);
+                });
+            });
+        
+            document.getElementById('checkout').addEventListener('click', () => {
+        const totalCost = parseFloat(totalCostElement.textContent);
+        if (totalCost > 0) {
+            alert(`Total cost: $${totalCost.toFixed(2)}. Thank you for purchasing!`);
+            cartItems.length = 0; 
+            updateCart(); 
+        } else {
+            alert('Your cart is empty.');
+        }
+    });
+});
+
+</script>
+</body>
+</html>
